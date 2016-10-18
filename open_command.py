@@ -1,11 +1,12 @@
 import re
 import os
-import subprocess
 import sublime, sublime_plugin
 
 
 def get_settings():
-    return sublime.load_settings("open_command.sublime-settings")
+    ret = sublime.load_settings("open_command.sublime-settings")
+    sublime.save_settings("open_command.sublime-settings")
+    return ret
 
 
 class OpenComplexFromUi(sublime_plugin.TextCommand):
@@ -33,7 +34,7 @@ class OpenComplexFromUi(sublime_plugin.TextCommand):
         
         ret = self.default_regex.search(cur_line_str)
         if ret != None:
-            return [ret.group(1)]
+            return [os.path.join(self.rawres_path, ret.group(1))]
         else:
             return None
 
@@ -42,6 +43,7 @@ class OpenComplexFromUi(sublime_plugin.TextCommand):
         cur_line_str = self.view.substr(self.view.line(self.view.sel()[0]))
         ret = self.match_open(cur_line_str)
         if ret != None:
-            print(ret)
-            subprocess.check_call(ret)
+            command = " ".join(ret)
+            print(command)
+            os.popen(command)
 

@@ -1,6 +1,6 @@
 [
     {
         "command": "open_complex_from_ui",
-        "keys": ["super+shift+o"]
+        "keys": ["alt+shift+o"]
     }
 ]
