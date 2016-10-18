@@ -1,0 +1,20 @@
+{
+    // "open_config": [
+    //     {
+    //         "regex" : ".+_complex(\\[gen\\])?\\.json",
+    //         "exe" : "easy_complex.exe",
+    //     },
+
+    //     {
+    //         "regex": ".+_anim\\.json",
+    //         "exe": "easy_animation.exe",
+    //     },
+
+    //     {
+    //         "regex": ".+\\.png",
+    //         "exe": "png.exe",
+    //     }
+    // ],
+
+    "rawres_path": "rawres/res_ui/editor_data/",
+}
