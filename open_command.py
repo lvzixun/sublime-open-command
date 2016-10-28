@@ -4,33 +4,37 @@ import sublime, sublime_plugin
 
 
 def get_settings():
-    ret = sublime.load_settings("open_command.sublime-settings")
-    sublime.save_settings("open_command.sublime-settings")
+    ret = sublime.load_settings("sublime-open-command.sublime-settings")
     return ret
 
 
 class OpenComplexFromUi(sublime_plugin.TextCommand):
-    settings = get_settings()
-    rawres_path = settings.get("rawres_path")
     default_regex = re.compile(r"^\s*--\s*file:\s*(.+)$")
 
     def __init__(self, arg):
         sublime_plugin.TextCommand.__init__(self, arg)
         self.drive = []
+        self.settings = get_settings()
+        self.rawres_path = self.settings.get("rawres_path")
+
         open_config_list = self.settings.get("open_config", []) or []
         for entry in open_config_list:
             exe = entry["exe"]
             regex = entry["regex"]
-            rg_exp = r"^\s*--\s*file:\s*({0})".format(regex)
-            self.drive.append({"exe": exe, "regex": re.compile(rg_exp)})
+            use_current_path = 'use_current_path' in entry and entry["use_current_path"] or False
+            self.drive.append({"exe": exe, "regex": re.compile(regex), "use_current_path":use_current_path})
 
 
     def match_open(self, cur_line_str):
+        file_name = self.view.file_name()
+        cur_dir = os.path.dirname(file_name)
         for entry in self.drive:
             ret = entry["regex"].search(cur_line_str)
             if ret != None:
-                path = os.path.join(self.rawres_path, entry["exe"])
-                return [path, ret.group(1)]
+                exe_path = entry["exe"]
+                cur_path = entry["use_current_path"] and cur_dir or self.rawres_path
+                target_path = os.path.join(cur_path, ret.group(1))
+                return [exe_path, target_path]
         
         ret = self.default_regex.search(cur_line_str)
         if ret != None:
