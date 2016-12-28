@@ -23,7 +23,7 @@ class OpenComplexByRemoteui(sublime_plugin.TextCommand):
 
     def run(self, edit):
         cur_word = self.view.substr(self.view.word(self.view.sel()[0]))
-        cmd = "openui:%s" % cur_word
+        cmd = "hydrarnan:%s" % cur_word
         self.send_message(cmd)
 
 
