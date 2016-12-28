@@ -1,22 +1,27 @@
 {
+    "remote_config": {
+        "host": "172.16.100.167",
+        "port": 20127,
+    },
+
     "open_config": [
-        {
-            "regex": "\"filepath\"\\s*:\\s*\"(.+_complex\\.json)\"",
-            "exe" : "D:\\mp\\editors\\easycomplex.exe",
-            "use_current_path": true,
-        },
+        // {
+        //     "regex": "\"filepath\"\\s*:\\s*\"(.+_complex\\.json)\"",
+        //     "exe" : "D:\\mp\\editors\\easycomplex.exe",
+        //     "use_current_path": true,
+        // },
 
 
-        {
-            "regex": "\"filepath\"\\s*:\\s*\"(.+_anim\\.json)\"",
-            "exe" : "D:\\mp\\editors\\easy_animation.exe",
-            "use_current_path": true,
-        },
+        // {
+        //     "regex": "\"filepath\"\\s*:\\s*\"(.+_anim\\.json)\"",
+        //     "exe" : "D:\\mp\\editors\\easy_animation.exe",
+        //     "use_current_path": true,
+        // },
 
-        {
-            "regex" : "--\\s*file:\\s*(.+_complex\\.json)",
-            "exe" : "D:\\mp\\editors\\easycomplex.exe",
-        },
+        // {
+        //     "regex" : "--\\s*file:\\s*(.+_complex\\.json)",
+        //     "exe" : "D:\\mp\\editors\\easycomplex.exe",
+        // },
 
         {
             "regex": "--\\s*file:\\s*(.+_anim\\.json)",
@@ -29,5 +34,5 @@
         // }
     ],
 
-    "rawres_path": "C:\\work\\ejoy\\lr\\rawres\\res_ui\\data\\editor_data",
+    "rawres_path": "/Users/zixunlv/codes/ejoy/lr_client/lua/gamelogic"
 }

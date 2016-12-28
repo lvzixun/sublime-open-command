@@ -1,5 +1,6 @@
 import re
 import os
+import socket
 import sublime, sublime_plugin
 
 
@@ -8,7 +9,27 @@ def get_settings():
     return ret
 
 
-class OpenComplexFromUi(sublime_plugin.TextCommand):
+# 远程打开UI
+class OpenComplexByRemoteui(sublime_plugin.TextCommand):
+    def __init__(self, arg):
+        sublime_plugin.TextCommand.__init__(self, arg)
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    def send_message(self, msg):
+        settings = get_settings()
+        host = settings.get("remote_config")["host"]
+        port = settings.get("remote_config")["port"]
+        self.sock.sendto(bytes(msg, "utf-8"), (host, port))
+
+    def run(self, edit):
+        cur_word = self.view.substr(self.view.word(self.view.sel()[0]))
+        cmd = "openui:%s" % cur_word
+        self.send_message(cmd)
+
+
+
+# 本地进行匹配打开UI
+class OpenComplexByLocalui(sublime_plugin.TextCommand):
     default_regex = re.compile(r"^\s*--\s*file:\s*(.+)$")
 
     def __init__(self, arg):

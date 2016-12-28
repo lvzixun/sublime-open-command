@@ -1,6 +1,11 @@
 [
     {
-        "command": "open_complex_from_ui",
-        "keys": ["alt+shift+o"]
+        "command": "open_complex_by_localui",
+        "keys": ["super+shift+l"]
+    },
+
+    {
+        "command": "open_complex_by_remoteui",
+        "keys": ["super+shift+r"]
     }
 ]
